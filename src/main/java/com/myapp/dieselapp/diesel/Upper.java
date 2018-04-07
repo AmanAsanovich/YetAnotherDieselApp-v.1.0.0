@@ -95,7 +95,7 @@ public class Upper {
         
             if (login(_acc.attr("Login"), _acc.attr("Password"))) {
                 for (Element _oneID : eSetOfIDs) {                          // For each ID
-//                    newUp(_oneID.text());
+                    newUp(_oneID.text());
                     myDelay(35);
                 }
             }
