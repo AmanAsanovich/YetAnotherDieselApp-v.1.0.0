@@ -3,39 +3,39 @@
 @author Aman Mambetov, asanbay@mail.ru
 --> 
 <DappIni> 
- <Account Login="YourLogin" Password="YourPasswd"> 
-  <IdOfTopic Title="...">
-    292777777 
+ <Account Login="Webwalker" Password="career"> 
+  <IdOfTopic Title="Фото аксессуары">
+    292066148 
   </IdOfTopic> 
-  <IdOfTopic Title="Ремонт...">
-    291977777
+  <IdOfTopic Title="ремонт спецтехники и грузовых машин">
+    291970567
   </IdOfTopic>
-  <IdOfTopic Title="Такси...">
-    292777777
-  </IdOfTopic>
+  <**IdOfTopic Title="Такси а/п Манас, Кордай">
+    292034594
+  <**/IdOfTopic>
  </Account> 
- <Account Login="YetAnotherUser" Password="YetAnotherPasswd">
- </Account> 
- <Account Login="OtherUser" Password="OtherPasswd">
-  <IdOfTopic Title="... услуги">
-    292777777
+ <**Account Login="Yema Group" Password="bolivar">
+ </**Account> 
+ <**Account Login="CaiLai" Password="Bass5strings">
+  <IdOfTopic Title="Фото услуги">
+    292069638
   </IdOfTopic>
   <IdOfTopic Title="Проявка и сканирование">
-    292777777
+    292060955
   </IdOfTopic>
-  <IdOfTopic Title="Tamron SP">
-    291777777
+  <IdOfTopic Title="Объектив Tamron SP">
+    291775199
   </IdOfTopic>
-  <IdOfTopic Title="Шины">
-    291777777
+  <IdOfTopic Title="фото плёнка цветная и ч\б">
+    291933934
   </IdOfTopic>
- </Account> 
+ <**/Account> 
  <System> 
   <UpString>
     auto up 
   </UpString> 
   <DebugFlag>
-    0 
+    1 
   </DebugFlag> 
  </System> 
 </DappIni>

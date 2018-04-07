@@ -147,24 +147,6 @@ public class Upper {
             .method(Connection.Method.POST)
             .execute();
 
-// Debug ------------------------------ ------------------------------
-/*        InputStream is = null;
-        try {
-            is = new FileInputStream("login-out.htm") {
-                @Override
-                public int read() throws IOException {
-                return 0;
-                }
-            };
-        }
-        catch (FileNotFoundException ex) {
-            log.log(Level.SEVERE, null, ex);
-        }
-
-        Document dDoc = Jsoup.parse(is, "UTF-8", "", Parser.xmlParser());
-*/
-// Debug ------------------------------ ------------------------------
-
         if (bDebug) {
             log.info(resp.statusMessage());
         }
@@ -182,7 +164,7 @@ public class Upper {
             if (bDebug) { FileWrite(dDoc.toString(), "login-out.htm"); }
             return false;
         }
-        if (bDebug) { log.info("Login is checked successfully"); }
+        if (bDebug) { log.info("Login confirmed"); }
         mCookies = resp.cookies();
     return true;
     }   // End of login method
@@ -297,7 +279,7 @@ public class Upper {
 */    
 
     
-    public Document ReadIni (String sFName) throws IOException {
+    public final Document ReadIni (String sFName) throws IOException {
     /*
     * Метод чтения настроек из файла инициализации
     * Возвращает объект Document
