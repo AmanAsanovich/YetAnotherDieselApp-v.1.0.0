@@ -37,10 +37,6 @@ public class IniData {
         sRe += sTitle;
         sRe += "\">.+?</IdOfTopic>";
         sDocument = sDocument.replaceFirst(sRe, "");
-// Debug        
-//        System.out.format("Pattern = %s\n", sRe);
-//        System.out.format("%s\n", sDocument);
-// Debug        
     }
     
     public void deleteTopic(String sTopicId) {

@@ -41,12 +41,8 @@ public class DieselApp {
         
         String logFile = System.getProperty("java.util.logging.config.file");   // java -Djava.util.logging.config.file=<external-logging.properties> -jar MyProjectJar.jar
         if(logFile == null){
-                try {
                     LogManager.getLogManager().readConfiguration(
                             DieselApp.class.getClassLoader().getResourceAsStream("logging.properties"));
-                } catch (FileNotFoundException | NullPointerException ex) {
-                    Logger.getLogger(WinDiesel.class.getName()).log(Level.SEVERE, null, ex);
-                }
         }                
         
         try {
