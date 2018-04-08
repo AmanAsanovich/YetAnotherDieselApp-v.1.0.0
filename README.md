@@ -9,8 +9,8 @@ java RE
 <p>
 Requires (dev)<br>
 Java<br>
-commons-cli-1.3.1<br>
-Jsoup-1.10.2<br>
 Maven<br>
 Git<br>
+(Uses commons-cli-1.3.1<br>
+Jsoup-1.10.2)<br>
 </p>
