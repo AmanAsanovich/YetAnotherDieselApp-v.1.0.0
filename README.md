@@ -28,6 +28,6 @@ Requires (dev)<br>
 Java<br>
 Maven<br>
 Git<br>
-(Uses commons-cli-1.3.1<br>
-Jsoup-1.10.2)<br>
+(Uses Jsoup-1.10.2<br>
+commons-cli-1.3.1)<br>
 </p>
