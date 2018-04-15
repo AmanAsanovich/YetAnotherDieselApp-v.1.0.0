@@ -1,3 +1,19 @@
+<h2>Держи свою тему на Дизель-форуме на гребне волны :)</h2>
+<b>Для десктопов</b>
+<p> 
+Впишите команду запуска в Cron/Планировщик, пример команды есть в скрипте runDiesel.ps1<br> Все настройки находятся в файле Dapp.xml.</p>
+<p>
+Системные требования<br>
+виртуальная машина java
+</p>
+<p>
+Требования для доработки/модификации<br>
+Java<br>
+Maven<br>
+Git<br>
+(Библиотеки commons-cli-1.3.1<br>
+Jsoup-1.10.2)<br>
+</p>
 <h2>Push your topic on top at your favorite diesel.elcat.kg forum</h2>
 <b>For desktops</b>
 <p> 
