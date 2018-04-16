@@ -21,12 +21,14 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
 import com.myapp.dieselapp.winDiesel.WinDiesel;
 
 /**
@@ -35,7 +37,7 @@ import com.myapp.dieselapp.winDiesel.WinDiesel;
  */
 public class DieselApp {
 
-    static Upper myUpper;
+    protected static Upper myUpper;
 
     /**
      * @param args the command line arguments
@@ -56,12 +58,10 @@ public class DieselApp {
         }                
         
         try {
-        // parse the command line arguments
-        CommandLine line = parser.parse( options, args );
-
-        // validate that 'gui' has been set
+            // parse the command line arguments
+            CommandLine line = parser.parse( options, args );
             if( line.hasOption( "gui" ) ) {
-                runGui();
+                DieselApp.runGui();
             }
             else {
                 myUpper = new Upper();

@@ -69,7 +69,7 @@ public class Upper {
         
         dIniDoc = null;
         try {
-            dIniDoc = ReadIni("Dapp.xml");
+            dIniDoc = this.ReadIni("Dapp.xml");
         } catch (IOException ex) {
             log.log(Level.SEVERE, null, ex);
         }
@@ -105,8 +105,8 @@ public class Upper {
         
             if (login(_acc.attr("Login"), _acc.attr("Password"))) {
                 for (Element _oneID : eSetOfIDs) {                          // For each ID
-                    newUp(_oneID.text());
-                    myDelay(35);
+                    this.newUp(_oneID.text());
+                    this.myDelay(7);
                 }
             }
 
@@ -118,7 +118,7 @@ public class Upper {
     
     public Boolean login(String sUser, String sPassw) throws IOException {
     /*
-    * Метод для входа в учетную запись форума diesel.elcat.kg
+    * Метод входа в учетную запись форума diesel.elcat.kg
     */
         if (sUser.isEmpty() || sPassw.isEmpty()) {
             log.info("Username or password is empty. Exit");
@@ -135,7 +135,7 @@ public class Upper {
 
         String sURL = "http://diesel.elcat.kg/index.php?app=core&module=global&section=login";
         Document dDoc = Jsoup.connect(sURL).get();
-        myDelay(2);
+        this.myDelay(2);
         
         // Поиск значения auth_key и f
         final String sAuthKey = dDoc.select("FORM[id=login] input[name=auth_key]").val();   // name="auth_key" value="88...15a0"
@@ -157,20 +157,14 @@ public class Upper {
             .method(Connection.Method.POST)
             .execute();
 
-        if (bDebug) {
-            log.info(resp.statusMessage());
-        }
+        if (bDebug) { log.info(resp.statusMessage()); }
 
         // To check - am I logen in?
         dDoc = resp.parse();
         String sExitLink = dDoc.select("a[id=user_link]").text();
         String sPatt = sUser + ".*";
         if (!sExitLink.matches(sPatt)) {
-            /*
-            * To do - put message to activity
-            */
-//            System.out.format("sExitLink: |%s|\n", sExitLink);
-            log.info("Not logged in. Possible bad username or password. Or wrong codepage");
+            log.info("Not logged in. Either bad username or password. Perhaps wrong codepage");
             if (bDebug) { FileWrite(dDoc.toString(), "login-out.htm"); }
             return false;
         }
@@ -184,10 +178,10 @@ public class Upper {
 /*      
 *   Метод записывает сообщение содержащееся в объекте-строке sUp ("up") в указанную
 *   тему на diesel-форуме.
-*   Аргумент sTID содержит id темы, куда нужно записать сообщение
+*   sTID содержит id темы, куда нужно записать сообщение
 */
         sTID = sTID.replaceAll("^\\s*(\\d{8,11})\\s*$", "$1");  // remove spaces if any
-        Document dDoc = findNdeleteUp(sTID);    // Delete "up"
+        Document dDoc = this.findNdeleteUp(sTID);    // Delete "up"
         
         // Поиск значения auth_key и f
         final Elements eInput = dDoc.select("form#ips_fastReplyForm input");  // Выбрать все теги input в форме с id=ips_fastReplyForm
@@ -234,7 +228,7 @@ public class Upper {
 /*      
 *   Метод удаляет все сообщения содержащиеся в объекте-строке sUp ("up") из указанной
 *   темы на diesel-форуме.
-*   Входная строка sTID содержит id темы, в которой нужно удалить сообщения
+*   sTID содержит id темы, в которой нужно удалить сообщения
 */
         sTID = sTID.replaceAll("^\\s*(\\d{8,11})\\s*$", "$1");  // remove spaces if any
         Document dDoc = Jsoup.connect(sTopicUrl + sTID).cookies(mCookies).get();
@@ -249,16 +243,14 @@ public class Upper {
             if (eUpPost1 != null || eUpPost2 != null) {
                 String sDelLink = _item.select("li.post_del a").first().attr("href");  // Если есть такой, выбираем ссылку удаления
                 if (sDelLink != null) {
-//                    System.out.format("sDelLink: %s\n", sDelLink);
                     try {
-                        dDoc = Jsoup.connect(sDelLink).cookies(mCookies).get();    // Deleting
+                        dDoc = Jsoup.connect(sDelLink).cookies(mCookies).get();    // Delete it
                     } catch (IOException ex) {
                         log.log(Level.SEVERE, null, ex);
                     }
-                    myDelay(1);
+                    this.myDelay(1);
                 }
             }
-//            if (bDebug) { FileWrite(dDoc.toString(), "findNdeleteUp-out2.htm"); }
         }
         
        return dDoc;
@@ -266,33 +258,18 @@ public class Upper {
 
     
     public void FileWrite (String sBuf, String sFName) {
-        final File f = new File(sFName);
         try {
-            FileUtils.writeStringToFile(f, sBuf, "UTF-8");
+            FileUtils.writeStringToFile(new File(sFName), sBuf, "UTF-8");
         } catch (IOException ex) {
             log.log(Level.SEVERE, null, ex);
         }
     }
-
-
-/*    
-    private String FileRead (String sFileName) {
-        final File f = new File(sFileName);
-        String sStr = "";
-        try {
-            sStr = FileUtils.readFileToString(f, "UTF-8");
-        } catch (IOException ex) {
-            log.log(Level.SEVERE, null, ex);
-        }
-    return sStr;
-    }
-*/    
 
     
     public final Document ReadIni (String sFName) throws IOException {
     /*
     * Метод чтения настроек из файла инициализации
-    * Возвращает объект Document
+    * 
     */
         InputStream is = null;
         try {
@@ -309,12 +286,9 @@ public class Upper {
 
         final Document dDoc = Jsoup.parse(is, "UTF-8", "", Parser.xmlParser());
         if (dDoc.getElementsByTag("DappIni").isEmpty()) {
-            log.info("Please check that your file is encoded in UTF-8 or UTF-16 and contains data.");
-            return null;
+            log.info("Please check if Dapp.ini file encoded in UTF-8 or UTF-16 and contains data.");
         }
-        else {
-            return dDoc;
-        }
+        return dDoc;
     }
     
     public void myDelay (long interval) {
@@ -334,19 +308,17 @@ public class Upper {
      *               unable to find valid certification path to requested target
      *  Written and compiled by Réal Gagnon rgagnon.com
      */
+    // Этот фикс использовался в старой версии Дизель-форума во избежание ошибки 500
     TrustManager[] trustAllCerts = new TrustManager[] {
        new X509TrustManager() {
           @Override
           public java.security.cert.X509Certificate[] getAcceptedIssuers() {
             return null;
           }
-
           @Override
           public void checkClientTrusted(X509Certificate[] certs, String authType) {  }
-
           @Override
           public void checkServerTrusted(X509Certificate[] certs, String authType) {  }
-
        }
     };
 
@@ -372,5 +344,3 @@ public class Upper {
 public static final Logger log = Logger.getLogger(Upper.class.getName());
    
 }   // End of Upper class
-
-
